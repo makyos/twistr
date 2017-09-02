@@ -34,13 +34,15 @@ TweetStream::Client.new.track(trackWord) do |status|
 
   dtnow = DateTime.now
 
-  puts
-  puts "\e[1m#{dtnow.year}.#{dtnow.month}.#{dtnow.day} #{dtnow.hour}:#{dtnow.min}:#{dtnow.sec} @#{status.user.screen_name}\e[0m"
+  # puts
+  # puts "\e[1m#{dtnow.year}.#{dtnow.month}.#{dtnow.day} #{dtnow.hour}:#{dtnow.min}:#{dtnow.sec} @#{status.user.screen_name}\e[0m"
+  # print "\e[1m#{dtnow.hour}:#{dtnow.min} @#{status.user.screen_name}\e[0m #{text} "
+  print "\n\e[1m#{format("%02d",dtnow.hour)}:#{format("%02d",dtnow.min)}\e[0m #{noti}"
   # puts "#{text.gsub(/(\r\n|\r|\n|\f)/, ' ')}"
   # puts text
   # puts noti
-  text.chars.map{|c| print c; sleep 0.01}
-  puts
+  # text.chars.map{|c| print c; sleep 0.01}
+  # puts
   
   if ! noti.include?('RT:')
     if ((DateTime.now-dtOld)*24*60*60).to_i > 600
