@@ -39,20 +39,20 @@ TweetStream::Client.new.track(trackWord) do |status|
   # puts "#{text.gsub(/(\r\n|\r|\n|\f)/, ' ')}"
   # puts text
   # puts noti
-  text.chars.map{|c| print c; sleep 0.015}
+  text.chars.map{|c| print c; sleep 0.01}
   puts
   
   if ! noti.include?('RT:')
-    if ((DateTime.now-dtOld)*24*60*60).to_i > 30
+    if ((DateTime.now-dtOld)*24*60*60).to_i > 600
       soundname = 'default'
     else
       soundname = 'muon'
     end
-    # Process.detach(spawn("say \"#{noti}\""))
-    TerminalNotifier.notify(noti, \
-      title:    "#{status.user.screen_name}", \
-      sound:    soundname, \
-      activate: 'com.apple.Terminal')
+    # # Process.detach(spawn("say \"#{noti}\""))
+    # TerminalNotifier.notify(noti, \
+    #   title:    "#{status.user.screen_name}", \
+    #   sound:    soundname, \
+    #   activate: 'com.apple.Terminal')
   end
   dtOld = DateTime.now
   
