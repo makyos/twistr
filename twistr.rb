@@ -22,13 +22,14 @@ end
 
 TweetStream::Client.new.track(trackWord) do |status|
 
+  return unless status.retweeted_status.nil?
   
   text = status.text
   
   noti = status.text
   noti = noti.gsub(/(\r\n|\r|\n|\f)/, ' ')
   noti = noti.gsub(/(\s|　)+/, ' ')
-  noti = noti.gsub(/RT\s@.+:\s/, 'RT: ')
+  # noti = noti.gsub(/RT\s@.+:\s/, 'RT: ')
   noti = noti.gsub(/\s#\w+/, '')
   noti = noti.gsub(/\s#{URI::regexp(%w(http https))}/, '')
 
@@ -44,7 +45,7 @@ TweetStream::Client.new.track(trackWord) do |status|
   # text.chars.map{|c| print c; sleep 0.01}
   # puts
   
-  if ! noti.include?('RT:')
+  # if ! noti.include?('RT:')
     if ((DateTime.now-dtOld)*24*60*60).to_i > 600
       soundname = 'default'
     else
@@ -55,7 +56,7 @@ TweetStream::Client.new.track(trackWord) do |status|
     #   title:    "#{status.user.screen_name}", \
     #   sound:    soundname, \
     #   activate: 'com.apple.Terminal')
-  end
+  # end
   dtOld = DateTime.now
   
 end
